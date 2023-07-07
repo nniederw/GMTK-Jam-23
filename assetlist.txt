@@ -1,9 +1,9 @@
 inventory backpack
 chest
-health potion
+health potion x
 sword
 leather armor
 plate armor
-hero
+hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword
 meelee monster x
 floor texture (continuing if possible)
