@@ -1,9 +1,9 @@
-inventory backpack
-chest
+inventory backpack 128 x 64
+chest 32
 health potion x
-sword
-leather armor
-plate armor
-hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword
-meelee monster x
-floor texture (continuing if possible)
+sword 
+leather armor 
+plate armor 
+hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword 32
+meelee monster x 
+floor texture 32 x (continuing if possible x)
