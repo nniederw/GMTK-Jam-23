@@ -1,7 +1,7 @@
 inventory backpack 128 x 64
-chest 32
+chest 32 x
 health potion x
-sword 
+sword x
 leather armor 
 plate armor 
 hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword 32
