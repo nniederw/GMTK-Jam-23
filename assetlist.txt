@@ -5,5 +5,5 @@ sword
 leather armor
 plate armor
 hero
-meelee monster
+meelee monster x
 floor texture (continuing if possible)
