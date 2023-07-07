@@ -1,0 +1,9 @@
+inventory backpack
+chest
+health potion
+sword
+leather armor
+plate armor
+hero
+meelee monster
+floor texture (continuing if possible)
