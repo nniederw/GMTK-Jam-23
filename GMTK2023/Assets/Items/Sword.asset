@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 036bdf1d64441374289bffc64b3d789a, type: 3}
-  m_Name: InvincibleEnemy
+  m_Script: {fileID: 11500000, guid: 6d253d140bcf3584aad674fe81b9f223, type: 3}
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 27613532c924c284889b29d7e2413d1e, type: 3}
-  Health: 100000000
-  Damage: 1
-  AttackDistance: 2
-  AttackCooldownSeconds: 0.5
-  VisionDistance: 5
+  ItemType: 1
+  Sprite: {fileID: 21300000, guid: edcf2f2b00ebe364ab3c7434bf3d8b8e, type: 3}
+  Damage: 2
+  DamageReduction: 0

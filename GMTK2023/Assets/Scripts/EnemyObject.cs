@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEditor.U2D;
 using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class EnemyObject : MonoBehaviour, IDamagable
@@ -6,21 +8,36 @@ public class EnemyObject : MonoBehaviour, IDamagable
     public Enemy EnemyType;
     private Movement Movement;
     private int Health;
-    private bool IsDead = false;
+    private bool Active = true;
     private HeroAI HeroAI;
     private Vector2 HeroLastPosition;
     private float AttackCooldown = 0f;
+    private void OnValidate()
+    {
+        if (EnemyType != null)
+        {
+            SetSprite();
+        }
+    }
     private void Start()
     {
         Movement = GetComponent<Movement>();
         Health = EnemyType.Health;
-        IsDead = false;
+        Active = true;
+        SetSprite();
+    }
+    private void SetSprite()
+    {
+        var sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.sprite = EnemyType.Sprite;
+        }
     }
     private void FixedUpdate()
     {
         if (Health < 0)
         {
-            IsDead = true;
             Destroy(gameObject);
             return;
         }
@@ -74,7 +91,11 @@ public class EnemyObject : MonoBehaviour, IDamagable
     public IDamagable Damagable() => this;
     public void GetAttacked(int damage) => Health -= damage;
     public int GetHealth() => Health;
-    public Item Interact() => throw new System.Exception("Enemies aren't interactable yet");
+    public List<Item> Interact() => new List<Item>();
     public IInteractable.Type InteractableType() => IInteractable.Type.Enemy;
-    public bool IsActive() => !IsDead;
+    public bool IsActive() => Active;
+    private void OnDestroy()
+    {
+        Active = false;
+    }
 }
