@@ -4,6 +4,6 @@ health potion x
 sword x
 leather armor x
 plate armor x
-hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword 32
+hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword 32 x
 meelee monster x 
 floor texture 32 x (continuing if possible x)
