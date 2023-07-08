@@ -4,8 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class HeroAI : MonoBehaviour
 {
-    private int Health = 20;
-    private int Damage = 1;
+    [SerializeField] private int Health = 20;
+    private int Damage => Weapon == null ? 1 : Weapon.Damage + 1;
     private int VisionDistance = 50;
     private HashSet<PointOfIntrest> PointOfIntrests = new HashSet<PointOfIntrest>();
     private float Boredom = 0f;
@@ -24,7 +24,6 @@ public class HeroAI : MonoBehaviour
     private void Start()
     {
         Health = 20;
-        Damage = 1;
         Movement = GetComponent<Movement>();
     }
     private void FixedUpdate()
