@@ -2,8 +2,8 @@ inventory backpack 128 x 64
 chest 32 x
 health potion x
 sword x
-leather armor 
-plate armor 
+leather armor x
+plate armor x
 hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword 32
 meelee monster x 
 floor texture 32 x (continuing if possible x)
