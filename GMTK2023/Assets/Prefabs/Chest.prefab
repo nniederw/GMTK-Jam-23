@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53dbce4f932e06544ab08db495b90bfc, type: 2}
   Looted: 0
   Active: 1
+  OpenedChest: {fileID: 21300000, guid: 2b454bf2e46df1d4080e8fb5d226118f, type: 3}
 --- !u!212 &7927983778821495404
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +91,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 7dbb429d80afca2439f28cb534a70c27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e96187bb0fd69134fa8b8405a3e8bbb2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
