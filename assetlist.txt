@@ -1,5 +1,5 @@
-inventory backpack 128 x 64
-chest 32 x
+inventory backpack 128 x 64 x
+chest 32 x new x
 health potion x
 sword x
 leather armor x
@@ -7,3 +7,12 @@ plate armor x
 hero, hero l armor, hero p armor, hero l armor+sword, hero p armor + sword, hero sword 32 x
 meelee monster x 
 floor texture 32 x (continuing if possible x)
+doorway + fallgitter x
+
+export
+door x
+all 3 hero versions x
+new chest + open x
+
+bla bla darkness end of the world 
+it's your job to train these new heroes/players
