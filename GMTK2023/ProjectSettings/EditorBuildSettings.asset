@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Room.unity
     guid: 9dbc615e185db2640bfb5e1e06cf95f0
+  - enabled: 1
+    path: Assets/Scenes/BoredomQuit.unity
+    guid: 0e4818b84b7aee04ea5b54be731a5331
+  - enabled: 1
+    path: Assets/Scenes/HeroDied.unity
+    guid: 2e03b33971c98ce4e82505371e874e1a
   m_configObjects: {}

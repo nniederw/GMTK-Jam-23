@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.U2D;
 using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class EnemyObject : MonoBehaviour, IDamagable

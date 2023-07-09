@@ -65,7 +65,10 @@ public class PlacedObject : MonoBehaviour
                     break;
                 }
             }
-            Debug.Log(foundSlot);
+            if (!foundSlot)
+            {
+                Destroy(gameObject);
+            }
         }
     }
     public void OnMouseDown()

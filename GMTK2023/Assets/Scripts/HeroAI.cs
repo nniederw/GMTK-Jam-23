@@ -1,37 +1,48 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class HeroAI : MonoBehaviour
 {
-    [SerializeField] public int Health = 20;
     public int Damage => Weapon == null ? 1 : Weapon.Damage + 1;
     private int VisionDistance = 50;
     private HashSet<PointOfIntrest> PointOfIntrests = new HashSet<PointOfIntrest>();
-    private float Boredom = 0f;
-    private float QuitBordom = 10f;
     private float AttackCooldown = 0f;
     private float AttackCooldownSeconds = 0.5f;
     private float ReachDistance = 1.5f;
     private Movement Movement;
     private const int HealthPotionHealing = 10;
-    public int HealthPotions = 0;
     private int EnemiesCountApprox = 0;
+    [SerializeField] private string CurrentGoal = "";
+    [SerializeField] public int Health = 20;
+    private int QuitBordom = 10;
+    public int Boredom = 0;
+    public int HealthPotions = 0;
     private Item Weapon = null;
     private Item Armor = null;
-    [SerializeField] private string CurrentGoal = "";
+    private static int staticHealth = 20;
+    private static int staticBoredom = 0;
+    public static int staticHealthPotions = 0;
+    private static Item staticWeapon = null;
+    private static Item staticArmor = null;
+    private int LootFound = 0;
+    private int EnemiesKilled = 0;
     //private List<> PastEnemies;
     private void Start()
     {
-        Health = 20;
         Movement = GetComponent<Movement>();
+        Health = staticHealth;
+        Boredom = staticBoredom;
+        HealthPotions = staticHealthPotions;
+        Weapon = staticWeapon;
+        Armor = staticArmor;
     }
     private void FixedUpdate()
     {
         LookForInteractables();
         CheckPointOfInterests();
         CheckHealth();
-        CheckBoredom();
         ConsiderHealthPotion();
         AttackCooldown -= Time.fixedDeltaTime;
     }
@@ -43,12 +54,15 @@ public class HeroAI : MonoBehaviour
             Health += HealthPotionHealing;
         }
     }
-    private void CheckBoredom()
+    private bool CheckBoredom()
     {
         if (Boredom >= QuitBordom)
         {
             Debug.Log("Hero Quit due to boredom");
+            RoomManager.BoredomQuit();
+            return true;
         }
+        return false;
     }
     public void GetAttacked(int damage)
     {
@@ -67,6 +81,10 @@ public class HeroAI : MonoBehaviour
         if (poi.Interactable.InteractableType() != IInteractable.Type.Enemy) throw new System.Exception("Hero tried to attack a non enemy");
         if (AttackCooldown > 0f) return;
         ((IDamagable)poi.Interactable).GetAttacked(Damage);
+        if (poi.Interactable.Damagable().GetHealth() <= 0)
+        {
+            EnemiesKilled++;
+        }
         AttackCooldown = AttackCooldownSeconds;
     }
     private void CheckHealth()
@@ -74,6 +92,8 @@ public class HeroAI : MonoBehaviour
         if (Health <= 0)
         {
             Debug.Log("Hero Died");
+            RoomManager.HeroDied();
+            Time.timeScale = 0f;
         }
     }
     private void CheckPointOfInterests()
@@ -174,23 +194,76 @@ public class HeroAI : MonoBehaviour
         {
             case Item.Type.HealthPotion:
                 HealthPotions++;
+                LootFound++;
                 break;
             case Item.Type.Weapon:
                 if (Weapon == null || item.Damage > Weapon.Damage)
                 {
                     Weapon = item;
                 }
+                LootFound++;
                 break;
             case Item.Type.Armor:
                 if (Armor == null || item.DamageReduction > Armor.DamageReduction)
                 {
                     Armor = item;
                 }
+                LootFound++;
                 break;
             case Item.Type.KeyToNextRoom:
+                EvaluateBoredom();
+                if (CheckBoredom())
+                {
+                    Time.timeScale = 0f;
+                    return;
+                }
+                SaveStats();
                 RoomManager.ClearedRoom();
                 break;
         }
+    }
+    private void SaveStats()
+    {
+        staticHealth = Health;
+        staticBoredom = Boredom;
+        staticHealthPotions = HealthPotions;
+        staticWeapon = Weapon;
+        staticArmor = Armor;
+    }
+    private void EvaluateBoredom()
+    {
+        if (EnemiesKilled == 0 && LootFound == 0)
+        {
+            Boredom += 3;
+        }
+        else if (EnemiesKilled == 0 || LootFound == 0)
+        {
+            Boredom += 2;
+        }
+        else
+        {
+            if (Health >= 17)
+            {
+                Boredom += 1;
+            }
+            else if (Health >= 14)
+            {
+                Boredom += 0;
+            }
+            else if (Health >= 7)
+            {
+                Boredom += -1;
+            }
+            else if (Health >= 2)
+            {
+                Boredom += -2;
+            }
+            else
+            {
+                Boredom += -3;
+            }
+        }
+        Boredom = Mathf.Clamp(Boredom, 0, 10);
     }
     private void LookForInteractables()
     {

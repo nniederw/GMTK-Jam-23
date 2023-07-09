@@ -7,9 +7,27 @@ public class RoomManager : MonoBehaviour
 {
     public static List<PlacedObject> PlacedObjects = new List<PlacedObject>();
     public static string RoomSceneName = "Room";
-    //public static string PrefabName;
+    public static string RoomBuilderSceneName = "RoomBuilder";
+    public static string QuitSceneName = "BoredomQuit";
+    public static string HeroDiedName = "HeroDied";
+    public GameObject HeroPrefab;
+    public static GameObject StaticHeroPrefab;
+    public static bool Subscribed = false;
+    public void Start()
+    {
+        if (HeroPrefab != null)
+        {
+            StaticHeroPrefab = HeroPrefab;
+        }
+        if (!Subscribed)
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            Subscribed = true;
+        }
+    }
     public static void ClearedRoom()
     {
+        SceneManager.LoadScene(RoomBuilderSceneName);
         Debug.Log("Implement this function");
     }
     public static void AddPlacable(PlacedObject placedObject)
@@ -28,19 +46,33 @@ public class RoomManager : MonoBehaviour
     }
     public static void BuildNewRoom()
     {
-        var roomData = GetRoomData();
+        RoomData = GetRoomData();
         SceneManager.LoadScene(RoomSceneName);
-        GameObject prefab = Resources.Load<GameObject>("Chest");
-        GameObject.Instantiate(prefab);
-        foreach (var data in roomData)
+
+    }
+    private static List<(Vector2 pos, GameObject prefab, List<Item> content)> RoomData;
+    private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == RoomSceneName)
         {
-            Debug.Log("Trying to Instantiate");
-            var obj = GameObject.Instantiate(data.prefab, data.pos, Quaternion.identity);
-            var Chest = obj.GetComponent<Chest>();
-            if (Chest != null)
+            foreach (var data in RoomData)
             {
-                Chest.Content = data.content;
+                var obj = GameObject.Instantiate(data.prefab, data.pos, Quaternion.identity);
+                var Chest = obj.GetComponent<Chest>();
+                if (Chest != null)
+                {
+                    Chest.Content = data.content;
+                }
             }
         }
+    }
+    public static void BoredomQuit()
+    {
+        SceneManager.LoadScene(QuitSceneName);
+    }
+
+    public static void HeroDied()
+    {
+        SceneManager.LoadScene(HeroDiedName);
     }
 }
