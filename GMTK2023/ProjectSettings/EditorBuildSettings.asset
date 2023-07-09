@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Concept.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/RoomBuilder.unity
+    guid: a7a4bd651ce968e4fbfa8248b344257d
+  - enabled: 1
+    path: Assets/Scenes/Room.unity
+    guid: 9dbc615e185db2640bfb5e1e06cf95f0
   m_configObjects: {}

@@ -24,6 +24,10 @@ public class Chest : MonoBehaviour, IInteractable
     {
         Active = false;
     }
+    private void Start()
+    {
+        Debug.Log("Chest start");
+    }
     private void OnValidate()
     {
         if (Content.Where(i => i == null).Any())
